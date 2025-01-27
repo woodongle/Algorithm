@@ -29,9 +29,12 @@ public class Main {
             }
         });
 
+        StringBuilder sb = new StringBuilder();
         for (Coordinate coordinate : coordinates) {
-            System.out.println(coordinate);
+            sb.append(coordinate.x_coordinate).append(" ").append(coordinate.y_coordinate).append("\n");
         }
+
+        System.out.println(sb);
     }
 
     static class Coordinate {
