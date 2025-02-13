@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Solution {
-    public int[] solution(int[] answers) {
+    public static int[] solution(int[] answers) {
         int[] number1 = {1, 2, 3, 4, 5};
         int[] number2 = {2, 1, 2, 3, 2, 4, 2, 5};
         int[] number3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
@@ -13,19 +13,9 @@ class Solution {
 
         int maxNumber = findMaxNumber(scores);
 
-        List<Integer> winners = new ArrayList<>();
-        for (int i = 0; i < scores.length; i++) {
-            if (maxNumber == scores[i]) {
-                winners.add(i + 1);
-            }
-        }
+        List<Integer> winners = getWinners(scores, maxNumber);
 
-        int[] answer = new int[winners.size()];
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = winners.get(i);
-        }
-
-        return answer;
+        return getAnswer(winners);
     }
     
     public static int grade(int[] answers, int[] numbers) {
@@ -50,5 +40,25 @@ class Solution {
         }
 
         return max;
+    }
+    
+    private static List<Integer> getWinners(int[] scores, int maxNumber) {
+        List<Integer> winners = new ArrayList<>();
+        for (int i = 0; i < scores.length; i++) {
+            if (maxNumber == scores[i]) {
+                winners.add(i + 1);
+            }
+        }
+
+        return winners;
+    }
+
+    private static int[] getAnswer(List<Integer> winners) {
+        int[] answer = new int[winners.size()];
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = winners.get(i);
+        }
+        
+        return answer;
     }
 }
