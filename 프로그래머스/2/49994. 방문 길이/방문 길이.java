@@ -1,45 +1,41 @@
 import java.util.*;
 
-class Solution {
+public class Solution {
+
+    private static boolean isValidMove(int movingX, int movingY) {
+        return 0 <= movingX && movingX < 11 && 0 <= movingY && movingY < 11;
+    }
+
+    private static final HashMap<Character, int[]> location = new HashMap<>();
+
+    private static void initLocation() {
+        location.put('U', new int[]{0, 1});
+        location.put('D', new int[]{0, -1});
+        location.put('L', new int[]{-1, 0});
+        location.put('R', new int[]{1, 0});
+    }
+
     public int solution(String dirs) {
-        Set<String> paths = new HashSet<>();
-        int x = 5;
-        int y = 5;
+        initLocation();
         
-        for (char command : dirs.toCharArray()) {
-            int movingX = x;
-            int movingY = y;
-            
-            switch (command) {
-                case 'U':
-                    if (y < 10) {
-                        movingY++;
-                    }
-                    break;
-                case 'D':
-                    if (y > 0) {
-                        movingY--;
-                    }
-                    break;
-                case 'R':
-                    if (x < 10) {
-                        movingX++;
-                    }
-                    break;
-                case 'L':
-                    if (x > 0) {
-                        movingX--;
-                    }
+        int x = 5, y = 5;
+        HashSet<String> paths = new HashSet<>();
+        
+        for (int i = 0; i < dirs.length(); i++) {
+            int[] offset = location.get(dirs.charAt(i));
+            int movingX = x + offset[0];
+            int movingY = y + offset[1];
+            if (!isValidMove(movingX, movingY)) {
+                continue;
             }
             
-            if (x != movingX || y != movingY) {
-                paths.add(x + "," + y + "," + movingX + "," + movingY);
-                paths.add(movingX + "," + movingY + "," + x + "," + y);
-                x = movingX;
-                y = movingY;
-            }
+            paths.add(x + " " + y + " " + movingX + " " + movingY);
+            paths.add(movingX + " " + movingY + " " + x + " " + y);
+            x = movingX;
+            y = movingY;
         }
-        
+
         return paths.size() / 2;
     }
+
 }
