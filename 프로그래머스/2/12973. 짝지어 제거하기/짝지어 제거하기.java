@@ -2,23 +2,19 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        Stack<Character> c = new Stack<>();
+        Stack<Character> stack = new Stack<>();
+        
         for (int i = 0; i < s.length(); i++) {
-            if (c.size() == 0) {
-                c.push(s.charAt(i));
+            char c = s.charAt(i);
+            
+            if (!stack.isEmpty() && stack.peek().equals(c)) {
+                stack.pop();
                 continue;
             }
             
-            if (c.peek().equals(s.charAt(i))) {
-                c.pop();
-                continue;
-            }
-            
-            c.push(s.charAt(i));
+            stack.push(c);
         }
         
-        System.out.println(c);
-
-        return c.size() == 0 ? 1 : 0;
+        return stack.isEmpty() ? 1 : 0;
     }
 }
