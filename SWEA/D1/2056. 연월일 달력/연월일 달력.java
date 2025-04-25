@@ -5,29 +5,30 @@ class Solution {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb;
+        StringBuilder sb = new StringBuilder();
 
         int T = Integer.parseInt(br.readLine());
 
         for (int i = 1; i <= T; i++) {
-            sb = new StringBuilder();
             sb.append("#").append(i).append(" ");
 
             String date = br.readLine();
 
-            String year = date.substring(0, 4);
-            String month = date.substring(4, 6);
-            String day = date.substring(6, 8);
+            int year = Integer.parseInt(date.substring(0, 4));
+            int month = Integer.parseInt(date.substring(4, 6));
+            int day = Integer.parseInt(date.substring(6, 8));
 
             try {
-                LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+                LocalDate.of(year, month, day);
 
-                sb.append(year).append("/").append(month).append("/").append(day);
-                System.out.println(sb);
+                sb.append(String.format("%04d/%02d/%02d", year, month, day));
             } catch (Exception e) {
                 sb.append(-1);
-                System.out.println(sb);
             }
+
+            sb.append("\n");
         }
+
+        System.out.println(sb);
     }
 }
