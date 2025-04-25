@@ -1,7 +1,7 @@
 class Solution {
 
     public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder();
+        /*StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -16,6 +16,8 @@ class Solution {
             sb.append("\n");
         }
 
-        System.out.println(sb);
+        System.out.println(sb);*/
+
+        System.out.println("#++++\n+#+++\n++#++\n+++#+\n++++#");
     }
 }
