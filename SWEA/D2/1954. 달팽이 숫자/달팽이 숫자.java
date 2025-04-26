@@ -48,16 +48,20 @@ class Solution {
             colEnd--;
 
             // 왼쪽으로 이동
-            for (int j = colEnd; j >= colStart; j--) {
-                snail[rowEnd][j] = num++;
+            if (rowStart <= rowEnd) {
+                for (int j = colEnd; j >= colStart; j--) {
+                    snail[rowEnd][j] = num++;
+                }
+                rowEnd--;
             }
-            rowEnd--;
 
             // 위쪽으로 이동
-            for (int j = rowEnd; j >= rowStart; j--) {
-                snail[j][colStart] = num++;
+            if (colStart <= colEnd) {
+                for (int j = rowEnd; j >= rowStart; j--) {
+                    snail[j][colStart] = num++;
+                }
+                colStart++;
             }
-            colStart++;
         }
     }
 }
