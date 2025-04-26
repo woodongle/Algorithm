@@ -9,17 +9,10 @@ class Solution {
         int N = Integer.parseInt(br.readLine());
 
         for (int i = 1; i <= N; i++) {
-            if (isContains(i)) {
-                String[] numberParts = String.valueOf(i).split("");
+            int count = count369(i);
 
-                int sum = 0;
-                for (String number : numberParts) {
-                    if (isContains(number)) {
-                        sum++;
-                    }
-                }
-
-                for (int j = 0; j < sum; j++) {
+            if (count > 0) {
+                for (int j = 0; j < count; j++) {
                     sb.append("-");
                 }
 
@@ -33,11 +26,19 @@ class Solution {
         System.out.println(sb);
     }
 
-    public static boolean isContains(int i) {
-        return String.valueOf(i).contains("3") || String.valueOf(i).contains("6") || String.valueOf(i).contains("9");
-    }
+    public static int count369(int number) {
+        int count = 0;
 
-    public static boolean isContains(String number) {
-        return String.valueOf(number).contains("3") || String.valueOf(number).contains("6") || String.valueOf(number).contains("9");
+        while (number > 0) {
+            int remainder = number % 10;
+
+            if (remainder == 3 || remainder == 6 || remainder == 9) {
+                count++;
+            }
+
+            number /= 10;
+        }
+
+        return count;
     }
 }
