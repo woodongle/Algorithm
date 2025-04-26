@@ -16,28 +16,20 @@ class Solution {
             int N = Integer.parseInt(st.nextToken());
             int M = Integer.parseInt(st.nextToken());
 
-            int[][] fly = new int[N][N];
-
-            for (int i = 0; i < fly.length; i++) {
+            int[][] prefix = new int[N + 1][N + 1];
+            for (int i = 1; i <= N; i++) {
                 st = new StringTokenizer(br.readLine());
 
-                for (int j = 0; j < fly[0].length; j++) {
-                    fly[i][j] = Integer.parseInt(st.nextToken());
+                for (int j = 1; j <= N; j++) {
+                    prefix[i][j] = prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1] + Integer.parseInt(st.nextToken());
                 }
             }
 
             int max = 0;
             int limit = N - M + 1;
-            for (int i = 0; i < limit; i++) {
-                for (int j = 0; j < limit; j++) {
-                    int sum = 0;
-
-                    for (int k = 0; k < M; k++) {
-                        for (int l = 0; l < M; l++) {
-                            sum += fly[i + k][j + l];
-                        }
-                    }
-
+            for (int i = 1; i <= limit; i++) {
+                for (int j = 1; j <= limit; j++) {
+                    int sum = prefix[i + M - 1][j + M - 1] - prefix[i - 1][j + M - 1] - prefix[i + M - 1][j - 1] + prefix[i - 1][j - 1];
                     max = Math.max(max, sum);
                 }
             }
