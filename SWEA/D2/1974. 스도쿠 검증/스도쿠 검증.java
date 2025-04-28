@@ -75,9 +75,12 @@ class Solution {
                         set.add(sudoku[i][j]);
                     }
                 }
+                
                 if (set.size() != 9) {
                     return false;
                 }
+                
+                set.clear();
             }
         }
         
