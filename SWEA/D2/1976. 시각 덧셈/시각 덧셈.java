@@ -28,11 +28,7 @@ class Solution {
 				tSum += 1;
 			}
 			
-			if (tSum < 24) {
-				tSum %= 12;
-			} else {
-				tSum /= 2;
-			}
+			tSum = (tSum - 1) % 12 + 1;
 			
 			sb.append(tSum).append(" ").append(mSum).append("\n");
 		}
