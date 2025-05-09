@@ -6,8 +6,8 @@ class Main {
 	private static int[][] board;
 	private static int n, m;
 	private static boolean[][] visited;
-	private static int[] rowDirection = {-1, 1, 0, 0};
-	private static int[] colDirection = {0, 0, -1, 1};
+	private static int[] rowDirection = {-1, 0, 1, 0};
+	private static int[] colDirection = {0, -1, 0, 1};
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
