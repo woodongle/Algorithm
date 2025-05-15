@@ -20,16 +20,16 @@ class Main {
 		
 		for (int i = 0; i < M; i++) {
 			int number = Integer.parseInt(st.nextToken());
-			int size = set.size();
 			
-			set.add(number);
-			
-			if (size == set.size()) {
-				System.out.println(1);
+			if (set.contains(number)) {
+				sb.append(1);
 			} else {
-				System.out.println(0);
-				set.remove(number);
+				sb.append(0);
 			}
+			
+			sb.append("\n");
 		}
+		
+		System.out.println(sb);
 	}
 }
