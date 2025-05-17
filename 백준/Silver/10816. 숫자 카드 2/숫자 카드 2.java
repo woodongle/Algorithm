@@ -8,13 +8,12 @@ class Main {
 		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());
-		HashMap<Integer, Integer> map = new HashMap<>();
+		int[] counts = new int[20_000_001];
+		int plusIndex = 10_000_000;
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
-			int number = Integer.parseInt(st.nextToken());
-			
-			map.put(number, map.getOrDefault(number, 0) + 1);
+			counts[Integer.parseInt(st.nextToken()) + plusIndex]++;
 		}
 		
 		int M = Integer.parseInt(br.readLine());
@@ -23,13 +22,7 @@ class Main {
 		for (int i = 0; i < M; i++) {
 			int number = Integer.parseInt(st.nextToken());
 			
-			if (map.containsKey(number)) {
-				sb.append(map.get(number));
-			} else {
-				sb.append(0);
-			}
-			
-			sb.append(" ");
+			sb.append(counts[number + plusIndex]).append(" ");
 		}
 		
 		System.out.println(sb);
