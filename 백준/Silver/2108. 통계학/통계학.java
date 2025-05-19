@@ -8,49 +8,38 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());
-		HashMap<Integer, Integer> map = new HashMap<>();
 		int[] numbers = new int[N];
-		double sum = 0.0;
+		int[] counts = new int[8001];
+		int sum = 0;
 		
 		for (int i = 0; i < N; i++) {
 			int number = Integer.parseInt(br.readLine());
-			
-			map.put(number, map.getOrDefault(number, 0) + 1);
 			numbers[i] = number;
+			counts[number + 4000]++;
 			sum += number;
-		}
-
-		int max = Collections.max(map.values());
-		List<Integer> list = new ArrayList<>();
-		
-		int prevNumber = 4001;
-		
-		for (int number : map.keySet()) {
-			if (map.get(number) == max) {
-				if (prevNumber != number) {
-					list.add(number);
-					prevNumber = number;
-				}
-			}
 		}
 		
 		Arrays.sort(numbers);
 		
-		if (sum > -1 && sum < 0) {
-			sb.append(0).append('\n');
-		} else {
-			sb.append(Math.round(sum / N)).append('\n');
-			
-		}
-		
+		sb.append(Math.round((double) sum / N)).append('\n');
 		sb.append(numbers[N / 2]).append('\n');
 		
-		if (list.size() > 1) {
-			Collections.sort(list);
-			sb.append(list.get(1)).append('\n');
-		} else {
-			sb.append(list.get(0)).append('\n');
+		int maxCount = 0;
+		int maxCountValue = 0;
+		boolean secondMaxCountValue = false;
+		
+		for (int i = 0; i < counts.length; i++) {
+			if (counts[i] > maxCount) {
+				maxCount = counts[i];
+				maxCountValue = i - 4000;
+				secondMaxCountValue = false;
+			} else if (counts[i] == maxCount && !secondMaxCountValue) {
+				maxCountValue = i - 4000;
+				secondMaxCountValue = true;
+			}
 		}
+		
+		sb.append(maxCountValue).append('\n');
 		
 		sb.append(numbers[N - 1] - numbers[0]);
 		
