@@ -23,11 +23,6 @@ class Main {
                 map.put(value, map.getOrDefault(value, 0) + 1);
             }
             
-            if (map.size() == 1) {
-                sb.append(n).append('\n');
-                continue;
-            }
-            
             int count = 1;
             for (int value : map.values()) {
                 count *= (value +1);
