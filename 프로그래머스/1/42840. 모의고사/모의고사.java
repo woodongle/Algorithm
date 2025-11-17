@@ -1,64 +1,45 @@
 import java.util.*;
+import java.io.*;
 
 class Solution {
-    public static int[] solution(int[] answers) {
-        int[] number1 = {1, 2, 3, 4, 5};
-        int[] number2 = {2, 1, 2, 3, 2, 4, 2, 5};
-        int[] number3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+    public int[] solution(int[] answers) {
+        // 각 수포자의 패턴을 2차원 배열에 초기화 한다.
+        // 정답이 있는 배열과 2차원 배열의 행들을 하나의 열씩 비교한다.
+        // 비교하여 맞으면 카운트를 1 증가한다.
+        // 카운트가 가장 높은 수포자의 번호를 반환
+        // 카운트가 동일한 경우 번호의 오름차순으로 반환
+        
+        int[][] arr = {
+            {1, 2, 3, 4, 5},
+            {2, 1, 2, 3, 2, 4, 2, 5},
+            {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
+        };
+        
         int[] scores = new int[3];
-
-        scores[0] = grade(answers, number1);
-        scores[1] = grade(answers, number2);
-        scores[2] = grade(answers, number3);
-
-        int maxNumber = findMaxNumber(scores);
-
-        List<Integer> winners = getWinners(scores, maxNumber);
-
-        return getAnswer(winners);
-    }
-    
-    public static int grade(int[] answers, int[] numbers) {
-        int count = 0;
-
+        
         for (int i = 0; i < answers.length; i++) {
-            if (numbers[i % numbers.length] == answers[i]) {
-                count++;
+            for (int j = 0; j < arr.length; j++) {
+                if (answers[i] == arr[j][i % arr[j].length]) {
+                    scores[j]++;
+                }
             }
-        }
-
-        return count;
-    }
-    
-    public static int findMaxNumber(int[] scores) {
-        int max = 0;
-
-        for (int score : scores) {
-            if (max < score) {
-                max = score;
-            }
-        }
-
-        return max;
-    }
-    
-    private static List<Integer> getWinners(int[] scores, int maxNumber) {
-        List<Integer> winners = new ArrayList<>();
-        for (int i = 0; i < scores.length; i++) {
-            if (maxNumber == scores[i]) {
-                winners.add(i + 1);
-            }
-        }
-
-        return winners;
-    }
-
-    private static int[] getAnswer(List<Integer> winners) {
-        int[] answer = new int[winners.size()];
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = winners.get(i);
         }
         
+        int maxScore = Arrays.stream(scores)
+            .max()
+            .getAsInt();
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        for (int i = 0; i < scores.length; i++) {
+            if (scores[i] == maxScore) {
+                result.add(i + 1);
+            }
+        }
+        
+        int[] answer = result.stream()
+            .sorted()
+            .mapToInt(Integer::intValue)
+            .toArray();
         return answer;
     }
 }
