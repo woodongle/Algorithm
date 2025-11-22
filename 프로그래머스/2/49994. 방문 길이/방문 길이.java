@@ -2,44 +2,38 @@ import java.util.*;
 
 class Solution {
     public int solution(String dirs) {
-        Set<String> paths = new HashSet<>();
-        int x = 5;
-        int y = 5;
+        Set<String> visited = new HashSet<>();
+        Map<Character, int[]> dirMap = new HashMap<>();
+        dirMap.put('U', new int[]{-1, 0});
+        dirMap.put('D', new int[]{1, 0});
+        dirMap.put('L', new int[]{0, -1});
+        dirMap.put('R', new int[]{0, 1});
+        
+        int currentRow = 0;
+        int currentCol = 0;
+        int newRoadCount = 0;
         
         for (char command : dirs.toCharArray()) {
-            int movingX = x;
-            int movingY = y;
+            int nextRow = currentRow + dirMap.get(command)[0];
+            int nextCol = currentCol + dirMap.get(command)[1];
             
-            switch (command) {
-                case 'U':
-                    if (y < 10) {
-                        movingY++;
-                    }
-                    break;
-                case 'D':
-                    if (y > 0) {
-                        movingY--;
-                    }
-                    break;
-                case 'R':
-                    if (x < 10) {
-                        movingX++;
-                    }
-                    break;
-                case 'L':
-                    if (x > 0) {
-                        movingX--;
-                    }
+            if (nextRow < -5 || nextRow > 5 || nextCol < -5 || nextCol > 5) {
+                continue;
             }
             
-            if (x != movingX || y != movingY) {
-                paths.add(x + "," + y + "," + movingX + "," + movingY);
-                paths.add(movingX + "," + movingY + "," + x + "," + y);
-                x = movingX;
-                y = movingY;
+            String visitedRoad1 = currentRow + ", " + currentCol + ", " + nextRow + ", " + nextCol;
+            String visitedRoad2 = nextRow + ", " + nextCol + ", " + currentRow+ ", " + currentCol;
+            
+            if (!visited.contains(visitedRoad1)) {
+                visited.add(visitedRoad1);
+                visited.add(visitedRoad2);
+                newRoadCount++;
             }
+            
+            currentRow = nextRow;
+            currentCol = nextCol;
         }
         
-        return paths.size() / 2;
+        return newRoadCount;
     }
 }
