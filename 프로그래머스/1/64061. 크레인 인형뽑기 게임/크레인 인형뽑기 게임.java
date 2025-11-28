@@ -1,34 +1,40 @@
 import java.util.*;
-import java.io.*;
 
 class Solution {
     public int solution(int[][] board, int[] moves) {
+        Stack<Integer> stack = new Stack<>();
+        int answer = 0;
         
-        Stack<Integer> luckyStack = new Stack<>();
-        int count = 0;
-        
-        for (int move : moves) {
-            int col = move - 1;
-            
-            for (int row = 0; row < board.length; row++) {
-                int luckyNumber = board[row][col];
+        for (int i = 0; i < moves.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                int caughtNumber = board[j][moves[i] - 1];
+                board[j][moves[i] - 1] = 0;
                 
-                if (luckyNumber != 0) {
-                    board[row][col] = 0;
-                    
-                    if (!luckyStack.isEmpty() && luckyStack.peek() == luckyNumber) {
-                        luckyStack.pop();
-                        count += 2;
-                    } else {
-                        luckyStack.push(luckyNumber);
-                        board[row][col] = 0;
-                    }
-                    
-                    break;
+                if (caughtNumber == 0) {
+                    continue;
                 }
+                
+                if (!stack.isEmpty() && stack.peek() == caughtNumber) {
+                    stack.pop();
+                    answer+=2;
+                } else {
+                    stack.push(caughtNumber);
+                }
+                
+                break;
             }
         }
         
-        return count;
+        while(stack.size() > 1) {
+            int popNumber = stack.pop();
+            System.out.println(popNumber);
+            
+            if (stack.size() > 1 && popNumber == stack.peek()) {
+                stack.pop();
+                answer+=2;
+            }
+        }
+        
+        return answer;
     }
 }
