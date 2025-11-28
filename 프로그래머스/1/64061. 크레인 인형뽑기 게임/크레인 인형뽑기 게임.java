@@ -25,16 +25,6 @@ class Solution {
             }
         }
         
-        while(stack.size() > 1) {
-            int popNumber = stack.pop();
-            System.out.println(popNumber);
-            
-            if (stack.size() > 1 && popNumber == stack.peek()) {
-                stack.pop();
-                answer+=2;
-            }
-        }
-        
         return answer;
     }
 }
