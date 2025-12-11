@@ -2,22 +2,20 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(arr[0]);
+        List<Integer> list = new ArrayList<>();
+        list.add(arr[0]);
         
         for (int i = 1; i < arr.length; i++) {
-            if (!stack.isEmpty() && arr[i] == stack.peek()) {
-                continue;
-            }
+            int prevNum = list.get(list.size() - 1);
+            int currentNum = arr[i];
             
-            stack.push(arr[i]);
+            if (prevNum != currentNum) {
+                list.add(currentNum);
+            }
         }
         
-        int[] answer = new int[stack.size()];
-        for (int i = answer.length - 1; i >= 0; i--) {
-            answer[i] = stack.pop();
-        }
-        
-        return answer;
+        return list.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
     }
 }
