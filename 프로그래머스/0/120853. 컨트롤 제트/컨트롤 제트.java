@@ -1,18 +1,21 @@
+import java.util.*;
+
 class Solution {
     public int solution(String s) {
-        int answer = 0;
-        String[] split = s.split(" ");
-        int prev = Integer.parseInt(split[0]);
-        answer += prev;
+        Stack<Integer> stack = new Stack<>();
         
-        for (int i = 1; i < split.length; i++) {
-            String current = split[i];
-            if (current.equals("Z")) {
-                answer -= prev;
+        for (String o : s.split(" ")) {
+            if (o.equals("Z")) {
+                stack.pop();
             } else {
-                answer += Integer.parseInt(current);
-                prev = Integer.parseInt(current);
+                stack.push(Integer.parseInt(o));
             }
+        }
+        
+        int answer = 0;
+        
+        while(!stack.isEmpty()) {
+            answer += stack.pop();
         }
         
         return answer;
