@@ -2,35 +2,28 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        ArrayDeque<int[]> deque = new ArrayDeque<>();
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int[] daysLeft = new int[progresses.length];
+        for (int i = 0; i < daysLeft.length; i++) {
+            daysLeft[i] = (int) Math.ceil((100.00 - progresses[i]) / speeds[i]);
+        }
+        
+        int count = 0;
+        int maxDay = daysLeft[0];
+        
         for (int i = 0; i < progresses.length; i++) {
-            deque.addLast(new int[]{progresses[i], speeds[i]});
-        }
-
-        List<Integer> list = new ArrayList<>();
-        while (!deque.isEmpty()) {
-            for (int i = 0; i < deque.size(); i++) {
-                int[] poll = deque.pollFirst();
-                deque.addLast(new int[]{poll[0] + poll[1], poll[1]});
-            }
-
-            int count = 0;
-            while (!deque.isEmpty()) {
-                if (deque.peek()[0] < 100) {
-                    break;
-                }
-
-                deque.pollFirst();
+            if (daysLeft[i] <= maxDay) {
                 count++;
-            }
-
-            if (count > 0) {
-                list.add(count);
+            } else {
+                deque.addLast(count);
+                count = 1;
+                maxDay = daysLeft[i];
             }
         }
-
-        return list.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
+        
+        deque.addLast(count);
+        return deque.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
     }
 }
