@@ -2,33 +2,44 @@ import java.util.*;
 
 class Solution {
     public String[] solution(String[] record) {
-        HashMap<String, String> nicknames = new HashMap<>();
-
-        for (String history : record) {
-            String[] parts = history.split(" ");
-            String command = parts[0];
-            String userId = parts[1];
-
-            if (command.equals("Enter") || command.equals("Change")) {
-                String nickname = parts[2];
-                nicknames.put(userId, nickname);
+        Map<String, String> map = new HashMap<>();
+        for (String s : record) {
+            String[] split = s.split(" ");
+            String command = split[0];
+            
+            if (command.equals("Leave")) {
+                continue;
             }
+            
+            String userId = split[1];
+            String nickname = split[2];
+            
+            map.put(userId, nickname);
         }
-
-        ArrayList<String> messages = new ArrayList<>();
-
-        for (String history : record) {
-            String[] parts = history.split(" ");
-            String command = parts[0];
-            String userId = parts[1];
-
+        
+        List<String> list = new ArrayList<>();
+        for (String s : record) {
+            String[] split = s.split(" ");
+            String command = split[0];
+            
+            if (command.equals("Change")) {
+                continue;
+            }
+            
+            String userId = split[1];
+            
             if (command.equals("Enter")) {
-                messages.add(nicknames.get(userId) + "님이 들어왔습니다.");
-            } else if (command.equals("Leave")) {
-                messages.add(nicknames.get(userId) + "님이 나갔습니다.");
+                list.add(map.get(userId) + "님이 들어왔습니다.");
+            } else {
+                list.add(map.get(userId) + "님이 나갔습니다.");
             }
         }
-
-        return messages.toArray(new String[0]);
+        
+        String[] answer = new String[list.size()];
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = list.get(i);
+        }
+        
+        return answer;
     }
 }
