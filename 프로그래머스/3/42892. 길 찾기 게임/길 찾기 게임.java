@@ -24,11 +24,12 @@ class Solution {
         postOrder(nodes.get(0), postOrderList);
         
         int[][] answer = new int[2][nodeinfo.length];
-
-        for (int i = 0; i < nodeinfo.length; i++) {
-            answer[0][i] = preOrderList.get(i);
-            answer[1][i] = postOrderList.get(i);
-        }
+        answer[0] = preOrderList.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
+        answer[1] = postOrderList.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
         
         return answer;
     }
