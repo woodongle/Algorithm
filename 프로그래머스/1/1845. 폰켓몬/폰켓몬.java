@@ -2,12 +2,6 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        int N = nums.length / 2;
-        Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            set.add(num);
-        }
-        
-        return N > set.size() ? set.size() : N;
+        return Math.min((int) Arrays.stream(nums).distinct().count(), nums.length / 2);
     }
 }
