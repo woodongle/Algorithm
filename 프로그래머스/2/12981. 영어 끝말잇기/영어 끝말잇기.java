@@ -2,9 +2,9 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int n, String[] words) {
-        List<String> list = new ArrayList<>();
+        Set<String> set = new HashSet<>();
         char prevChar = words[0].charAt(words[0].length() - 1);
-        list.add(words[0]);
+        set.add(words[0]);
         
         for (int i = 1; i < words.length; i++) {
             String word = words[i];
@@ -12,7 +12,7 @@ class Solution {
             int count = i / n + 1;
             char currentChar = word.charAt(0);
             
-            if (list.contains(word)) {
+            if (set.contains(word)) {
                 return new int[]{currentNum, count};
             }
             
@@ -25,7 +25,7 @@ class Solution {
             }
             
             prevChar = word.charAt(word.length() - 1);
-            list.add(word);
+            set.add(word);
         }
 
         return new int[]{0, 0};
