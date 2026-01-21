@@ -12,15 +12,9 @@ class Solution {
             int count = i / n + 1;
             char currentChar = word.charAt(0);
             
-            if (set.contains(word)) {
-                return new int[]{currentNum, count};
-            }
-            
-            if (word.length() == 1) {
-                return new int[]{currentNum, count};
-            }
-            
-            if (prevChar != currentChar) {
+            if (set.contains(word) || 
+                word.length() == 1 || 
+                prevChar != currentChar) {
                 return new int[]{currentNum, count};
             }
             
